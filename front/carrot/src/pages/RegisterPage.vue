@@ -30,6 +30,8 @@ export default{
                 preview.src=reader.result;
             }
 
+            console.log(image.files[0]);
+
             reader.readAsDataURL(image.files[0]);
 
         }
