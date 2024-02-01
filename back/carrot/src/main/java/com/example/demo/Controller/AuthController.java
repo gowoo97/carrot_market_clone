@@ -22,7 +22,6 @@ public class AuthController {
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@RequestBody MemberDTO memberDTO) {
 		HashMap<String,Object> hm=new HashMap<>();
-		
 		if(authService.signup(memberDTO)) {
 			System.out.println("회원가입 성공!");
 			hm.put("register_stat",true);
@@ -30,16 +29,23 @@ public class AuthController {
 		else {
 			System.out.println("회원가입 실패!");
 			hm.put("register_stat",false);
-			
 		}
 		return ResponseEntity.ok(hm);
-		
 	}
 	
 	@PostMapping("/signin")
-	public void signin(MemberDTO memberDTO) {
+	public ResponseEntity<?> signin(@RequestBody MemberDTO memberDTO) {
 		
+		String token = authService.signin(memberDTO);
 		
+		HashMap<String,String> hm=new HashMap<>();
+		hm.put("token",token);
+		if(token==null) {	
+			return ResponseEntity.badRequest().body(hm);
+		}
+		else {
+			return ResponseEntity.ok(hm);
+		}
 		
 	}
 	

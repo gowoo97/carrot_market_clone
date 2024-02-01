@@ -4,7 +4,7 @@ import com.example.demo.entity.dto.MemberDTO;
 
 public interface AuthService {
 
-	public boolean signin(MemberDTO memberDTO);
+	public String signin(MemberDTO memberDTO);
 	
 	
 	public boolean signup(MemberDTO memberDTO);
