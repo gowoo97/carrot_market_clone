@@ -1,5 +1,7 @@
 package com.example.demo.entity.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.demo.entity.Member;
 
 import lombok.Builder;
