@@ -20,7 +20,11 @@
 
 <script>
 export default{
-
+    data(){
+        return{
+            login:true
+        }
+    }
 }
 </script>
 

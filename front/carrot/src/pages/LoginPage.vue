@@ -3,11 +3,11 @@
 
         <div class="box">
             <h1 style="text-align:center">로그인</h1>
-            <input type="text" placeholder="아이디를 입력하세요"/>
-            <input type="password" placeholder="패스워드를 입력하세요"/>
-            <input type="button" value="로그인"/>
+            <input type="text" placeholder="아이디를 입력하세요" v-model="userId"/>
+            <input type="password" placeholder="패스워드를 입력하세요" v-model="password"/>
+            <input type="button" value="로그인" v-on:click="login"/>
             <p>
-                아직 회원이 아니신가요?
+              아직 회원이 아니신가요?
               <RouterLink to="/register"><span style="color: aqua;">회원가입</span></RouterLink>
             </p>
         </div>
@@ -15,8 +15,28 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default{
 
+    data(){
+        return {
+            userId:"",
+            password:""
+        }
+    },
+    methods:{
+        login:function(){
+            const request = {
+                userId:this.$data.userId,
+                password:this.$data.password
+            }
+
+            axios.post("http://localhost:8080/auth/signin",request)
+                .then(request=>{
+                    localStorage.setItem('token',request.data.token);
+                });
+        }
+    }
 }
 </script>
 
