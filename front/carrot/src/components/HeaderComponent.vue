@@ -10,7 +10,8 @@
             <input type="text" placeholder="물품이나 동네를 검색해보세요" style="height: 80%; width: 288px;background-color: #F2F3F6;
             border:none"/>
             <RouterLink to="/login"><input type="button" value="채팅하기" style="height: 80%;width: 97px; margin-right: 10px; background-color: white; "/></RouterLink>
-           <RouterLink to="/login"><input type="button" value="로그인" style="height: 80%;width: 97px; margin-right: 10px; background-color: white;" /></RouterLink>
+            <a v-if="hasToken"><input type="button" value="로그아웃" v-on:click="logout" style="height: 80%;width: 97px; margin-right: 10px; background-color: white;" /></a>
+           <RouterLink to="/login" v-else><input type="button"  value="로그인" style="height: 80%;width: 97px; margin-right: 10px; background-color: white;" /></RouterLink>
         </div>
     </div>
 
@@ -19,12 +20,33 @@
 </template>
 
 <script>
+
 export default{
     data(){
         return{
-            login:true
+            hasToken:false
+        }
+    },
+    mounted(){
+        this.emitter.on('login',()=>{
+            console.log('login!!!!!!');
+            this.hasToken=true;
+        });
+
+        if(localStorage.getItem('token')){
+            this.hasToken=true;
+        }
+        else{
+            this.hasToken=false;
+        }
+    },
+    methods:{
+        logout:function(){
+            localStorage.removeItem('token');
+            this.hasToken=false;
         }
     }
+
 }
 </script>
 

@@ -16,6 +16,7 @@
 
 <script>
 import axios from 'axios';
+
 export default{
 
     data(){
@@ -34,6 +35,8 @@ export default{
             axios.post("http://localhost:8080/auth/signin",request)
                 .then(request=>{
                     localStorage.setItem('token',request.data.token);
+                    this.emitter.emit('login');
+                    this.$router.push({ path:'/'});
                 });
         }
     }
