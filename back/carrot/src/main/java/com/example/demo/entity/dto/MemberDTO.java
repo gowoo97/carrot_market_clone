@@ -13,7 +13,7 @@ public class MemberDTO {
 	
 	private String userId;
 	
-	
+	 
 	private String password;
 	
 

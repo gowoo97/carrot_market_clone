@@ -31,7 +31,7 @@ public class AuthController {
 	
 	@PostMapping(path = "/signup")
 	public ResponseEntity<?> signup(@RequestPart(value = "memberDTO") MemberDTO memberDTO,
-			@RequestPart(value = "profile") MultipartFile file) throws IOException {
+			@RequestPart(value = "profile",required = false) MultipartFile file) throws IOException {
 		HashMap<String,Object> hm=new HashMap<>();
 		UUID uuid=UUID.randomUUID();
 		
