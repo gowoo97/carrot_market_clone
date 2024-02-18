@@ -23,11 +23,16 @@ public class SecurityConfig {
         http.formLogin().disable();
         http.httpBasic().disable();
         http.addFilterBefore(new JWTAuthFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
+        
+       
+        
         http.authorizeRequests()
         	.requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+        	.requestMatchers(HttpMethod.GET,"/item/**").permitAll()
+        	.requestMatchers("/images/**").permitAll()
         	.requestMatchers("/auth/**").permitAll()
         	.anyRequest().authenticated();
-
+         
         return http.build();
     }
 	
