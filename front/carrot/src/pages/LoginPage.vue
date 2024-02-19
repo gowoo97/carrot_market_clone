@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default{
 
@@ -31,13 +30,13 @@ export default{
                 userId:this.$data.userId,
                 password:this.$data.password
             }
-
-            axios.post("http://localhost:8080/auth/signin",request)
-                .then(request=>{
+            this.$axios.post("http://localhost:8080/auth/signin",request)
+            .then(request=>{
                     localStorage.setItem('token',request.data.token);
                     this.emitter.emit('login');
                     this.$router.push({ path:'/'});
                 });
+                
         }
     }
 }

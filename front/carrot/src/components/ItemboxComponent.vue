@@ -1,6 +1,6 @@
 <template>
-    <div>
-
+    <div class="itemBox">
+        <img />
     </div>
 </template>
 
@@ -8,12 +8,17 @@
 <script>
 
 export default{
-    components:{
-
+    props:{
+        item:{
+            
+        }
     }
 }
 </script>
 
 <style scoped>
-
+.itemBox{
+    width: 223px;
+    height: 332px;
+}
 </style>

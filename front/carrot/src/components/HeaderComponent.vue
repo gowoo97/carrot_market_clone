@@ -2,8 +2,9 @@
     <div class="header">
         <div class="content">
             <img src="../assets/carrot.png" />
-            <div>
-               <RouterLink to="/fleamarket"><h3>중고거래</h3></RouterLink>
+            <div class="menu-box">
+               <RouterLink to="/fleamarket" class="menu"><h3>중고거래</h3></RouterLink>
+               <RouterLink to="/selling" class="menu"><h3>물품등록</h3></RouterLink>
             </div>
         </div>
         <div class="inputs">
@@ -61,14 +62,21 @@ export default{
         position: static;
         margin: 0;
     }
-
+    
     .content{
         display: flex;
         justify-content: flex-start;
         margin-right: auto;
     }
 
+    .menu-box{
+        display: flex;
 
+    }
+
+    .menu{
+        padding: 5px;
+    }
 
     .inputs>input{
         box-sizing: content-box;

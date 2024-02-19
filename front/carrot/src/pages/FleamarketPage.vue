@@ -14,6 +14,11 @@
             </div>
         </div>
         <h1 style="text-align:center">중고거래 인기매몰</h1>
+        <div>
+
+            
+
+        </div>
     </div>
 </template>
 
