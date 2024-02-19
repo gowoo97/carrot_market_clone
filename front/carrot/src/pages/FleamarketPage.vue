@@ -14,17 +14,29 @@
             </div>
         </div>
         <h1 style="text-align:center">중고거래 인기매몰</h1>
-        <div>
-
-            
-
+        <div class="itemBox">
+            <ItemComponent  v-for="item in items" v-bind:key="item.id" :item="item"/>
         </div>
     </div>
 </template>
 
 <script>
+import ItemComponent from '../components/ItemComponent.vue';
 export default{
-
+    data:function(){
+        return{
+            items:[]
+        }
+    },
+    components:{
+       ItemComponent
+    },
+    created(){
+        this.$axios.get("http://localhost:8080/item/14").then((response)=>{
+            this.$data.items=response.data;
+            console.log(this.$data.items[0]);
+        });
+    }
 }
 </script>
 
@@ -38,5 +50,11 @@ export default{
 }
 .banner img{
     max-height:300px;
+}
+
+.itemBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

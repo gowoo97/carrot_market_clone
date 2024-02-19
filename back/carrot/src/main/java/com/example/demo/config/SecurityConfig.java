@@ -23,7 +23,6 @@ public class SecurityConfig {
         http.formLogin().disable();
         http.httpBasic().disable();
         http.addFilterBefore(new JWTAuthFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
-        
        
         
         http.authorizeRequests()

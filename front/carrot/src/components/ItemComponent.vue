@@ -1,19 +1,25 @@
 <template>
     <div>
-        <img src="../assets/kim.JPG"/>
-        <h5>{{ title }}</h5>
-        <h6>{{ price }} </h6>
-        <h6>{{ address }}</h6>
-        <span>관심 {{ like }}.채팅{{ chat }}</span>
+        <img :src="`http://localhost:8080/images/${item.photos[0]}`" />
+        <h5>{{ item.title}}</h5>
+        <h6>{{ item.price }} </h6>
     </div>
 </template>
 
 <script>
 export default{
-    props:['title','price','address','like','chat']
+    props:{
+        item:{
+            type:Object
+        }
+    }
 }
 </script>
 
 <style scoped>
-
+img{
+    width: 223px;
+    height: 223px;
+    border-radius: 10px;
+}
 </style>
