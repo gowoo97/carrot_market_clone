@@ -15,4 +15,6 @@ public interface ItemService {
 	
 	public Page<Item> getItems(int count);
 	
+	public Item getItem(Long id);
+	
 }

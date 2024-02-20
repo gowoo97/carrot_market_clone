@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,26 +38,25 @@ public class ItemController {
 		
 	}
 	
-	@GetMapping("/{count}")
-	public ResponseEntity<List<ItemDTO>> getItems(@PathVariable int count) {
+	@GetMapping
+	public ResponseEntity<List<ItemDTO>> getItems(@RequestParam(name = "count") int count) {
 		
 		Page<Item> pages=itemService.getItems(count);
 		
 		List<ItemDTO> items=new ArrayList<>();
 		
 		for(Item item:pages.getContent()){
-			
-			ItemDTO itemDTO=ItemDTO.builder().id(item.getId()).content(item.getContent()).title(item.getTitle())
-			.place(item.getPlace()).price(item.getPrice()).photos(new ArrayList<>()).build();
-			
-			for(ItemPhoto itemPhoto:item.getPhotos()) {
-				itemDTO.getPhotos().add(itemPhoto.getFileName());
-			}
-			
-			items.add(itemDTO);
+			items.add(item.toDTO());
 		}
 		
 		return ResponseEntity.ok(items);
 	}
+	
+	@GetMapping("/{id}")
+	public ItemDTO getItem(@PathVariable(name = "id") Long id) {
+		Item item=itemService.getItem(id);
+		return item.toDTO();
+	}
+	
 	
 }

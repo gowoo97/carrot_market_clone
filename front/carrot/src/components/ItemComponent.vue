@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-on:click="moveDetail">
         <img :src="`http://localhost:8080/images/${item.photos[0]}`" />
         <h5>{{ item.title}}</h5>
         <h6>{{ item.price }} </h6>
@@ -12,7 +12,14 @@ export default{
         item:{
             type:Object
         }
+    },
+    methods:{
+        moveDetail:function(){
+            this.$router.push({path:`/fleamarket/detail/${this.item.id}`});
+            
+        }
     }
+
 }
 </script>
 

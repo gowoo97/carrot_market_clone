@@ -30,7 +30,7 @@ public class ItemPhoto {
 	@Column
 	private String fileName;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch =  FetchType.LAZY)
 	@JoinColumn(name = "item_id")
 	private Item item_id;
 	

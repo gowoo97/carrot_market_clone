@@ -3,7 +3,8 @@ import MainComponent from './components/MainComponent.vue';
 import FleamarketPage from './pages/FleamarketPage.vue';
 import LoginPage from './pages/LoginPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
-import SellingPage from './pages/SellingPage'
+import SellingPage from './pages/SellingPage.vue'
+import DetailPage from './pages/DetailPage.vue';
 const routes = [
     {
         path:'/',
@@ -24,6 +25,10 @@ const routes = [
     {
         path:'/selling',
         component:SellingPage
+    },
+    {
+        path:'/fleamarket/detail/:id',
+        component:DetailPage
     }
 ]
 

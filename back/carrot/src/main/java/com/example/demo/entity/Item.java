@@ -3,6 +3,8 @@ package com.example.demo.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.entity.dto.ItemDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -40,7 +42,22 @@ public class Item {
 	@Column(name = "place")
 	private String place;
 	
-	@OneToMany(mappedBy = "item_id" , fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "item_id" , fetch = FetchType.LAZY)
 	private List<ItemPhoto> photos=new ArrayList<>();
+	
+	
+	
+	
+	public ItemDTO toDTO() {
+			ItemDTO itemDTO=ItemDTO.builder().id(this.id).title(this.title).price(this.price).content(this.content).place(this.place)
+			.photos(new ArrayList<>()).build();
+		
+		for(ItemPhoto photo : this.photos) {
+			itemDTO.getPhotos().add(photo.getFileName());
+		}
+		
+		return itemDTO;
+			
+	}
 	
 }

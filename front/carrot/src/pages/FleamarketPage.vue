@@ -32,7 +32,7 @@ export default{
        ItemComponent
     },
     created(){
-        this.$axios.get("http://localhost:8080/item/14").then((response)=>{
+        this.$axios.get("http://localhost:8080/item?count=14").then((response)=>{
             this.$data.items=response.data;
             console.log(this.$data.items[0]);
         });

@@ -54,6 +54,12 @@ public class ItemServiceImpl implements ItemService{
 		return itemRepository.findAll(PageRequest.of(0,count));
 	}
 
+	@Override
+	@Transactional
+	public Item getItem(Long id) {
+		return itemRepository.findById(id).get();
+	}
+
 	
 	
 	
