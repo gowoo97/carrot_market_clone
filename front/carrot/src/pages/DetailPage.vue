@@ -1,33 +1,33 @@
 <template>
     <div class="box">
-
         <div class="images">
-            <img :src="`http://localhost:8080/images/20db8238-924a-4a56-adad-347adf294eaf_winter-260817_1280.jpg`" />
+            <div v-for="(photo,index) in item.photos" :key="index">
+                <img :src="`http://localhost:8080/images/${photo}`" class="image" />
+            </div>
         </div>
         <hr/>
         <div class="profile">
-
             <div class="user">
                 <div class="photo">
                     
                 </div>
                 <div>
-                    <span>불가사리뚱이</span><br/>
-                    <span>김포시 장기동</span>
+                    
+                     
                 </div>
             </div>
 
             <div>
-
+                
             </div>
         </div>
         <hr/>
         <div>
-            <h1>s23울트라 256g 자급제 새상품</h1>
-            <h3>400,000원</h3>
-            <p>
-                s23울트라 256G 자급제 새상품 판매합니다. 
-            </p>
+            <h2>{{ item.title }}</h2>
+                <h3>{{ item.price }}</h3>
+                <p>
+                    {{ item.content }}
+                </p>
         </div>
 
     </div>
@@ -36,7 +36,26 @@
 
 
 <script>
+
 export default{
+
+    data(){
+        return{
+            item:{},
+            
+        }
+    },
+    mounted(){
+        this.$axios.get(`http://localhost:8080/item/${this.$router.currentRoute._value.params.id}`)
+        .then((response)=>{
+           this.item=response.data;
+           console.log(this.item);
+        });
+        
+    },
+    
+
+
 
 }
 </script>
@@ -53,10 +72,18 @@ export default{
 .images{
     width: 729px;
     height: 502px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
 }
+
+
 .images img{
     width: 100%;
     height: 100%;
+    position:relative;
+    min-width: 729px;
+
 }
 .box{
     display: flex;
