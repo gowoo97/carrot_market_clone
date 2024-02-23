@@ -20,4 +20,5 @@ public class ItemDTO {
 	private String content;
 	private String place;
 	private List<String> photos=new ArrayList<>();
+	private MemberDTO publisher;
 }

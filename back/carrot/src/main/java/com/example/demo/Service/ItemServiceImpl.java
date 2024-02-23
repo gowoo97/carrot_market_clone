@@ -7,14 +7,16 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Repository.ItemPhotoRepository;
 import com.example.demo.Repository.ItemRepository;
+import com.example.demo.Repository.MemberRepository;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.ItemPhoto;
+import com.example.demo.entity.Member;
 import com.example.demo.entity.dto.ItemDTO;
 
 import jakarta.transaction.Transactional;
@@ -27,13 +29,19 @@ public class ItemServiceImpl implements ItemService{
 	
 	@Autowired
 	private ItemPhotoRepository itemPhotoRepository;
+	
+	@Autowired
+	private MemberRepository memberRepository;
 
 	@Override
 	@Transactional
 	public Item addItem(MultipartFile[] files,ItemDTO itemDTO) throws IOException {
 		
+		String userId= SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		Member publisher = memberRepository.findByUserId(userId);
+		
 		Item item = Item.builder().title(itemDTO.getTitle()).price(itemDTO.getPrice()).content(itemDTO.getContent())
-				.place(itemDTO.getPlace()).build();
+				.place(itemDTO.getPlace()).publisher(publisher).build();
 		
 		itemRepository.save(item);
 		
@@ -44,18 +52,18 @@ public class ItemServiceImpl implements ItemService{
 			.item_id(item).build();
 			itemPhotoRepository.save(itemPhoto);
 		}
+
+		
+		
 		return item;
 	}
 
 	@Override
-	@Transactional
 	public Page<Item> getItems(int count) {
-		
 		return itemRepository.findAll(PageRequest.of(0,count));
 	}
 
 	@Override
-	@Transactional
 	public Item getItem(Long id) {
 		return itemRepository.findById(id).get();
 	}

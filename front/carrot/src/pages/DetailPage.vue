@@ -8,12 +8,11 @@
         <hr/>
         <div class="profile">
             <div class="user">
-                <div class="photo">
-                    
+                <div class="photo" >
+                    <img  :src="`http://localhost:8080/images/${item?.publisher?.profile}`" />
                 </div>
                 <div>
-                    
-                     
+                   <span> {{ item?.publisher?.userId }} </span>
                 </div>
             </div>
 
@@ -42,6 +41,7 @@ export default{
     data(){
         return{
             item:{},
+            user:{}
             
         }
     },
@@ -49,7 +49,7 @@ export default{
         this.$axios.get(`http://localhost:8080/item/${this.$router.currentRoute._value.params.id}`)
         .then((response)=>{
            this.item=response.data;
-           console.log(this.item);
+           console.log(this.item.publisher.userId);
         });
         
     },
@@ -68,6 +68,7 @@ export default{
     border-radius: 50%;
      width: 50px;
      height: 50px;
+     overflow: hidden;
 }
 .images{
     width: 729px;
@@ -77,6 +78,12 @@ export default{
     overflow: hidden;
 }
 
+.photo img{
+    width:100%;
+    
+    height: 100%;
+
+}
 
 .images img{
     width: 100%;
