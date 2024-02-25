@@ -25,7 +25,9 @@ const routes = [
     },
     {
         path:'/selling',
-        component:SellingPage
+        component:SellingPage,
+        meta:{requiredAuth: true}
+
     },
     {
         path:'/fleamarket/detail/:id',
@@ -33,7 +35,8 @@ const routes = [
     },
     {
         path:'/chatting',
-        component:chattingPage
+        component:chattingPage,
+        meta:{requiredAuth: true}
     }
 ]
 
@@ -41,6 +44,21 @@ const router = createRouter({
     mode:'history',
     history: createWebHistory(),
     routes
-})
+});
+
+router.beforeEach(function (to,_,next){
+    const access_token = localStorage.getItem('token');
+    if(!access_token){
+        if(to.meta.requiredAuth){
+            alert('로그인 후 이용해 주세요');
+            next('/');
+        }else{
+            next();
+        }
+    }else{
+        next();
+    }
+});
+
 
 export default router;
