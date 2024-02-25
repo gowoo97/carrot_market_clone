@@ -46,11 +46,12 @@ export default{
             localStorage.removeItem('token');
             this.hasToken=false;
             this.$router.push({path:'/'});
-            this.$router.go(this.$router.currentRoute);
         },
         chatting:function(){
             if(this.hasToken==false){
                 alert("로그인이 필요한 서비스입니다.");
+            }else{
+                this.$router.push({path:'/chatting'});
             }
         },
         selling:function(){
