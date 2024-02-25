@@ -50,10 +50,12 @@ public class Item {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Member publisher;
 	
+	@Column(name = "visit")
+	private long visit;
 	
 	public ItemDTO toDTO() {
 			ItemDTO itemDTO=ItemDTO.builder().id(this.id).title(this.title).price(this.price).content(this.content).place(this.place)
-			.photos(new ArrayList<>()).publisher(new MemberDTO()).build();
+			.photos(new ArrayList<>()).publisher(new MemberDTO()).visit(this.visit).build();
 		
 		for(ItemPhoto photo : this.photos) {
 			itemDTO.getPhotos().add(photo.getFileName());

@@ -64,8 +64,11 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
+	@Transactional
 	public Item getItem(Long id) {
-		return itemRepository.findById(id).get();
+		Item item =itemRepository.findById(id).get();
+		item.setVisit(item.getVisit()+1);
+		return item; 
 	}
 
 	

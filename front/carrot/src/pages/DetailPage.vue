@@ -12,21 +12,27 @@
                     <img  :src="`http://localhost:8080/images/${item?.publisher?.profile}`" />
                 </div>
                 <div>
-                   <span> {{ item?.publisher?.userId }} </span>
+                   <span> {{ item?.publisher?.userId }} </span><br/>
+                   <span>{{ item.place }}</span>
                 </div>
             </div>
 
             <div>
-                
+                <button class="addBtt" v-on:click="addFriend">친구추가</button>
             </div>
         </div>
         <hr/>
-        <div>
+        <div class="content">
             <h2>{{ item.title }}</h2>
                 <h3>{{ item.price }}</h3>
                 <p>
                     {{ item.content }}
                 </p>
+        </div>
+
+        <div style="width: 729px;">
+            <span style="float: left;">조회수:{{ item.visit }}</span>
+
         </div>
 
     </div>
@@ -40,7 +46,11 @@ export default{
 
     data(){
         return{
-            item:{},
+            item:{
+                publisher:{
+                    userId:""
+                }
+            },
             user:{}
             
         }
@@ -53,6 +63,20 @@ export default{
         });
         
     },
+    methods:{
+        addFriend:function(){
+            this.$axios.post(`http://localhost:8080/friend`,{
+                to:this.item.publisher.userId
+            })
+            .then((response)=>{
+                console.log(response.data);
+            })
+            .catch(function(err){
+                console.log(err);
+                alert("이미 친구입니다.");
+            });
+        }
+    }
     
 
 
@@ -85,6 +109,19 @@ export default{
 
 }
 
+.content{
+    width: 729px;
+}
+.addBtt{
+    background-color: #ff6f0f;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
 .images img{
     width: 100%;
     height: 100%;
@@ -101,6 +138,7 @@ export default{
 }
 .user{
     display: flex;
+    margin-right: auto;
 }
 .profile{
     display: flex;

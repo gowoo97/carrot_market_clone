@@ -4,13 +4,13 @@
             <img src="../assets/carrot.png" />
             <div class="menu-box">
                <RouterLink to="/fleamarket" class="menu"><h3>중고거래</h3></RouterLink>
-               <RouterLink to="/selling" class="menu"><h3>물품등록</h3></RouterLink>
+               <a v-on:click="selling" class="menu"><h3>물품등록</h3></a>
             </div>
         </div>
         <div class="inputs">
             <input type="text" placeholder="물품이나 동네를 검색해보세요" style="height: 80%; width: 288px;background-color: #F2F3F6;
             border:none"/>
-            <RouterLink to="/login"><input type="button" value="채팅하기" style="height: 80%;width: 97px; margin-right: 10px; background-color: white; "/></RouterLink>
+            <a v-on:click="chatting"><input type="button" value="채팅하기" style="height: 80%;width: 97px; margin-right: 10px; background-color: white; "/></a>
             <a v-if="hasToken"><input type="button" value="로그아웃" v-on:click="logout" style="height: 80%;width: 97px; margin-right: 10px; background-color: white;" /></a>
            <RouterLink to="/login" v-else><input type="button"  value="로그인" style="height: 80%;width: 97px; margin-right: 10px; background-color: white;" /></RouterLink>
         </div>
@@ -45,6 +45,21 @@ export default{
         logout:function(){
             localStorage.removeItem('token');
             this.hasToken=false;
+            this.$router.push({path:'/'});
+            this.$router.go(this.$router.currentRoute);
+        },
+        chatting:function(){
+            if(this.hasToken==false){
+                alert("로그인이 필요한 서비스입니다.");
+            }
+        },
+        selling:function(){
+            if(this.hasToken==false){
+                alert("로그인이 필요한 서비스입니다.");
+            }
+            else{
+                this.$router.push({path:'selling'});
+            }
         }
     }
 
@@ -76,6 +91,7 @@ export default{
 
     .menu{
         padding: 5px;
+        cursor: pointer;
     }
 
     .inputs>input{

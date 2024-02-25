@@ -55,6 +55,7 @@ public class ItemController {
 	@GetMapping("/{id}")
 	public ItemDTO getItem(@PathVariable(name = "id") Long id) {
 		Item item=itemService.getItem(id);
+		
 		return item.toDTO();
 	}
 	

@@ -25,7 +25,6 @@ public class Member {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long seq;
 	
-	
 	@Column
 	private String userId;
 	
@@ -36,12 +35,12 @@ public class Member {
 	private String profile;
 	
 	
+	
 	public MemberDTO toDTO() {
 		return MemberDTO.builder()
 				.userId(userId)
 				.password(password)
 				.profile(profile)
 				.build();
-		
 	}
 }

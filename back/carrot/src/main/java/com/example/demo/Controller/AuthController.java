@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.Service.AuthService;
 import com.example.demo.entity.dto.MemberDTO;
 
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
