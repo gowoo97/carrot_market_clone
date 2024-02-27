@@ -1,5 +1,8 @@
 package com.example.demo.entity.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.demo.entity.Member;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +23,9 @@ public class MemberDTO {
 	
 
 	private String profile;
+	
+	
+	private List<MemberDTO> friendList=new ArrayList<>();
 	
 	
 	public Member toEntity() {

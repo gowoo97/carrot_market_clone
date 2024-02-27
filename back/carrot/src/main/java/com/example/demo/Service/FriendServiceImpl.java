@@ -26,13 +26,15 @@ public class FriendServiceImpl implements FriendService {
 			Member member1=memberRepository.findByUserId(userId1);
 			Member member2=memberRepository.findByUserId(userId2);
 			
-			Friend friend=Friend.builder().from(member1).to(member2).build();
-	
-			friendRepository.save(friend);
+			Friend friend1=Friend.builder().from(member1).to(member2).build();
+			Friend friend2=Friend.builder().from(member2).to(member1).build();
+			
+			friendRepository.save(friend1);
+			friendRepository.save(friend2);
 		
 		
 		
-		return friend;
+		return friend1;
 	}
 
 }

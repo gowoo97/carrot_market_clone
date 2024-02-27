@@ -1,6 +1,13 @@
 <template>
     <div class="page">
         <div class="side">
+            <div class="profile">
+
+                <span style="font-weight: bolder;">{{ user.userId }}</span>
+
+            </div>
+
+            
 
         </div>
         <div class="content">
@@ -17,6 +24,18 @@
 
 <script>
 export default{
+
+    data:function(){
+        return{
+            user:{}
+        }
+    },
+    mounted(){
+        this.$axios.get("http://localhost:8080/member")
+        .then((response)=>{
+            this.user=response.data;
+        });
+    }
 
 }
 </script>
@@ -38,7 +57,12 @@ export default{
     height: 100%;
     border: 1px solid black;
 }
-
+.profile{
+   padding-top: 20px;
+   padding-left: 10px;
+   padding-bottom: 20px;
+    border-bottom: 1px solid lightgray;
+}
 .content{
     height: 100%;
     width: 100%;
