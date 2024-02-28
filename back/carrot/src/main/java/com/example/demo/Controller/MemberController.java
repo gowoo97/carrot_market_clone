@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Service.MemberService;
 import com.example.demo.entity.Friend;
 import com.example.demo.entity.Member;
-import com.example.demo.entity.dto.FriendDTO;
 import com.example.demo.entity.dto.MemberDTO;
+import com.example.demo.entity.dto.ProfileDTO;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -32,13 +32,20 @@ public class MemberController {
 		
 		Member member =memberService.getMember(user);
 		
-		MemberDTO memberDTO= member.toDTO();
-		memberDTO.setPassword("");
-		memberDTO.setFriendList(new ArrayList<>());
+		MemberDTO memberDTO =MemberDTO.builder().userId(user).profile(member.getProfile())
+				.friendList(new ArrayList<>()).build();
+		
 		for(Friend friend : member.getFriendList()) {
-			FriendDTO friendDTO =new FriendDTO(friend.getFrom().getUserId(),friend.getTo().getUserId());
-			memberDTO.getFriendList().add(friendDTO);
+			
+			Member friendMember = friend.getTo();
+			
+			ProfileDTO profile=new ProfileDTO(friendMember.getUserId(),friendMember.getProfile());
+			
+			memberDTO.getFriendList().add(profile);
+			
 		}
+		
+		
 		
 		return ResponseEntity.ok(memberDTO);
 		

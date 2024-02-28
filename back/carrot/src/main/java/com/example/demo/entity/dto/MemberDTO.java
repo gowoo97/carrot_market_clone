@@ -25,7 +25,7 @@ public class MemberDTO {
 	private String profile;
 	
 	
-	private List<MemberDTO> friendList=new ArrayList<>();
+	private List<ProfileDTO> friendList=new ArrayList<>();
 	
 	
 	public Member toEntity() {

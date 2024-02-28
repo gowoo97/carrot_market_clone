@@ -7,7 +7,9 @@
 
             </div>
 
-            
+            <div class="friend" v-for="(profile,i) in user.friendList" :key="i">
+                <ProfileComponent :profile="profile"></ProfileComponent>
+            </div>
 
         </div>
         <div class="content">
@@ -15,7 +17,8 @@
 
             </div>
             <div class="inputArea">
-
+                <textarea></textarea>
+                <button>전송</button>
             </div>
         </div>
     </div>
@@ -23,6 +26,7 @@
 
 
 <script>
+import ProfileComponent from '../components/ProfileComponent.vue';
 export default{
 
     data:function(){
@@ -34,8 +38,12 @@ export default{
         this.$axios.get("http://localhost:8080/member")
         .then((response)=>{
             this.user=response.data;
+            console.log(this.user);
         });
+    },components:{
+        ProfileComponent
     }
+
 
 }
 </script>
@@ -70,12 +78,27 @@ export default{
 }
 
 .chat{
-    height: 95%;
+    height: 90%;
     border:1px solid black;
+}
+
+.friend{
+    height: 100px;
 }
 
 .inputArea{
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    height: 10%;
+}
+
+.inputArea textarea{
+    width: 90%;
+    resize: none;
+}
+.inputArea button{
+    width:10%;
 }
 
 </style>
