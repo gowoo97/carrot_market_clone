@@ -43,8 +43,7 @@ public class Member {
 	@Column
 	private String profile;
 	
-	@OneToMany(mappedBy = "from", fetch = FetchType.LAZY)
-	private List<Friend> friendList=new ArrayList<>();
+	
 	
 	public MemberDTO toDTO() {
 		return MemberDTO.builder()

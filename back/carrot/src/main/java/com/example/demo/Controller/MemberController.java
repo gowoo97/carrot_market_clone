@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.Service.FriendService;
 import com.example.demo.Service.MemberService;
 import com.example.demo.entity.Friend;
 import com.example.demo.entity.Member;
@@ -24,6 +26,8 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private FriendService friendService;
 	
 	@GetMapping
 	public ResponseEntity<?> findMemberByToken() {
@@ -34,10 +38,18 @@ public class MemberController {
 		
 		MemberDTO memberDTO =MemberDTO.builder().userId(user).profile(member.getProfile())
 				.friendList(new ArrayList<>()).build();
+
 		
-		for(Friend friend : member.getFriendList()) {
-			
-			Member friendMember = friend.getTo();
+		List<Friend> friends = friendService.getFriends(member.getSeq());
+		
+		for(Friend friend : friends ) {
+			Member friendMember;
+			if(member.getUserId().equals(friend.getFrom().getUserId())) {
+				friendMember=friend.getTo();
+			}
+			else {
+				friendMember=friend.getFrom();
+			}
 			
 			ProfileDTO profile=new ProfileDTO(friendMember.getUserId(),friendMember.getProfile());
 			
