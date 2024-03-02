@@ -15,4 +15,6 @@ public class ProfileDTO {
 	
 	private String profile;
 	
+	private long room_no;
+	
 }

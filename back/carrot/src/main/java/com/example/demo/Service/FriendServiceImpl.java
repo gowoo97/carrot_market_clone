@@ -33,10 +33,11 @@ public class FriendServiceImpl implements FriendService {
 			Member member1=memberRepository.findByUserId(userId1);
 			Member member2=memberRepository.findByUserId(userId2);
 			
+			
+			
 			Friend friend1=Friend.builder().from(member1).to(member2).build();
 			
 			friendRepository.save(friend1);
-		
 			Room room=new Room();
 			room.setFriend(friend1);
 			

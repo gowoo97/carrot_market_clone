@@ -39,6 +39,8 @@ public class Friend {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Member to;
 	
-	
+	@JoinColumn(name = "room")
+	@OneToOne(mappedBy = "friend")
+	private Room room;
 	
 }

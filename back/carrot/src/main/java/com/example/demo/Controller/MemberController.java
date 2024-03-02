@@ -51,7 +51,7 @@ public class MemberController {
 				friendMember=friend.getFrom();
 			}
 			
-			ProfileDTO profile=new ProfileDTO(friendMember.getUserId(),friendMember.getProfile());
+			ProfileDTO profile=new ProfileDTO(friendMember.getUserId(),friendMember.getProfile(),friend.getRoom().getId());
 			
 			memberDTO.getFriendList().add(profile);
 			
