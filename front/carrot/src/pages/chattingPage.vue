@@ -8,7 +8,7 @@
             </div>
 
             <div class="friend" v-for="(profile,i) in user.friendList" :key="i">
-                <ProfileComponent :profile="profile"></ProfileComponent>
+                <ProfileComponent :profile="profile" v-on:click="send(profile.room_no)" ></ProfileComponent>
             </div>
 
         </div>
@@ -27,6 +27,8 @@
 
 <script>
 import ProfileComponent from '../components/ProfileComponent.vue';
+import Stomp from 'webstomp-client'
+import SockJS from 'sockjs-client'
 export default{
 
     data:function(){
@@ -34,6 +36,10 @@ export default{
             user:{}
         }
     },
+    created(){
+        this.connect();
+    }
+    ,
     mounted(){
         this.$axios.get("http://localhost:8080/member")
         .then((response)=>{
@@ -42,6 +48,22 @@ export default{
         });
     },components:{
         ProfileComponent
+    },
+    methods:{
+        send:function(e){
+            console.log(e);
+        },
+        connect:function(){
+            const token = "Bearer "+localStorage.getItem('token');
+            console.log(token);
+            let socket = new SockJS('http://localhost:8080/ws');
+            this.stompClient = Stomp.over(socket);
+            console.log('소켓 연결을 시도합니다.');
+            this.stompClient.connect({Authorization:token}, ()=>{
+               // console.log('Connected: '+frame);
+                
+            });
+        }
     }
 
 
