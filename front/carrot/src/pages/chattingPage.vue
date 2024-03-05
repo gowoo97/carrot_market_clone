@@ -25,7 +25,7 @@
 </template>
 
 
-<script>
+<script lang="js">
 import ProfileComponent from '../components/ProfileComponent.vue';
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
@@ -59,9 +59,8 @@ export default{
             let socket = new SockJS('http://localhost:8080/ws');
             this.stompClient = Stomp.over(socket);
             console.log('소켓 연결을 시도합니다.');
-            this.stompClient.connect({Authorization:token}, ()=>{
-               // console.log('Connected: '+frame);
-                
+            this.stompClient.connect({},frame=>{
+                console.log('소켓연결 성공',frame);
             });
         }
     }
