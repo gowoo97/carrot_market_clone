@@ -35,7 +35,6 @@ public class SecurityConfig {
         	.requestMatchers(HttpMethod.GET).permitAll()
         	.requestMatchers("/images/**").permitAll()
         	.requestMatchers("/auth/**").permitAll()
-        	.requestMatchers("/ws/**").permitAll()
         	
         	.anyRequest().authenticated();
          

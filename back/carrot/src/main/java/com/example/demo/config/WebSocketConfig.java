@@ -21,7 +21,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		
 		registry.setApplicationDestinationPrefixes("/app");
-		registry.enableSimpleBroker("/topic");
+		registry.enableStompBrokerRelay("/topic")
+		.setClientLogin("admin")
+		.setClientPasscode("admin")
+		.setSystemLogin("admin")
+		.setSystemPasscode("admin");
 		
 	}
 

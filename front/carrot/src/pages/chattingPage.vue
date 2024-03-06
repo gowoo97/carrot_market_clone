@@ -8,7 +8,7 @@
             </div>
 
             <div class="friend" v-for="(profile,i) in user.friendList" :key="i">
-                <ProfileComponent :profile="profile" v-on:click="send(profile.room_no)" ></ProfileComponent>
+                <ProfileComponent :profile="profile" v-on:click="subscribe(profile.room_no)" ></ProfileComponent>
             </div>
 
         </div>
@@ -17,8 +17,8 @@
 
             </div>
             <div class="inputArea">
-                <textarea></textarea>
-                <button>전송</button>
+                <textarea v-model="message"></textarea>
+                <button v-on:click="send">전송</button>
             </div>
         </div>
     </div>
@@ -33,7 +33,10 @@ export default{
 
     data:function(){
         return{
-            user:{}
+            user:{},
+            message:'',
+            roomNo:0,
+            subscription:null
         }
     },
     created(){
@@ -50,8 +53,8 @@ export default{
         ProfileComponent
     },
     methods:{
-        send:function(e){
-            console.log(e);
+        send:function(){
+            this.stompClient.send("/topic/"+this.roomNo,JSON.stringify(this.message),{});
         },
         connect:function(){
             const token = "Bearer "+localStorage.getItem('token');
@@ -62,6 +65,16 @@ export default{
             this.stompClient.connect({},frame=>{
                 console.log('소켓연결 성공',frame);
             });
+        },
+        subscribe:function(id){
+            this.roomNo=id;
+            if(this.subscription != null){
+                console.log("dsfsdf");
+                this.subscription.unsubscribe();
+            }
+            this.subscription=this.stompClient.subscribe("/topic/"+id,res=>{
+                console.log(res.body);
+            }); 
         }
     }
 
