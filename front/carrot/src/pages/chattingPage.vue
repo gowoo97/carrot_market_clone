@@ -14,7 +14,11 @@
         </div>
         <div class="content">
             <div class="chat">
-
+                <div v-for="(msg,i) in receiveList" :key="i">
+                    <span>{{ JSON.parse(msg).userName }}</span><br/>
+                    <span>{{ JSON.parse(msg).content }}</span>
+                    
+                </div>
             </div>
             <div class="inputArea">
                 <textarea v-model="message"></textarea>
@@ -36,7 +40,8 @@ export default{
             user:{},
             message:'',
             roomNo:0,
-            subscription:null
+            subscription:null,
+            receiveList:[]
         }
     },
     created(){
@@ -54,7 +59,11 @@ export default{
     },
     methods:{
         send:function(){
-            this.stompClient.send("/topic/"+this.roomNo,JSON.stringify(this.message),{});
+            const msg = {
+                userName: this.user.userId,
+                content: this.message
+            }
+            this.stompClient.send("/app/"+this.roomNo,JSON.stringify(msg),{});
         },
         connect:function(){
             const token = "Bearer "+localStorage.getItem('token');
@@ -74,6 +83,8 @@ export default{
             }
             this.subscription=this.stompClient.subscribe("/topic/"+id,res=>{
                 console.log(res.body);
+                this.receiveList.push(res.body);
+                console.log(this.receiveList);
             }); 
         }
     }
