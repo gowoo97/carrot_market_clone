@@ -14,9 +14,16 @@
         </div>
         <div class="content">
             <div class="chat">
-                <div v-for="(msg,i) in receiveList" :key="i">
-                    <span>{{ JSON.parse(msg).userName }}</span><br/>
-                    <span>{{ JSON.parse(msg).content }}</span>
+                <div class="message" v-for="(msg,i) in receiveList" :key="i">
+                    <div class="mine" v-if="JSON.parse(msg).userName === user.userId">
+                        <span  class="myName" >{{ JSON.parse(msg).userName }}</span><br/>
+                        <span style="display: inline-block; background-color: #ff6f0f; border-radius: 10px; padding: 10px;">{{ JSON.parse(msg).content }}</span>    
+                    </div>
+
+                    <div class="yours" v-else>
+                        <span>{{ JSON.parse(msg).userName }}</span><br/>
+                        <span style="display: inline-block; background-color: #ff6f0f; border-radius: 10px; padding: 10px;">{{ JSON.parse(msg).content }}</span>    
+                    </div>
                     
                 </div>
             </div>
@@ -145,5 +152,17 @@ export default{
 .inputArea button{
     width:10%;
 }
+
+.mine{
+    margin-left: auto;
+
+}
+
+
+
+.message{
+    display: flex;
+}
+
 
 </style>
