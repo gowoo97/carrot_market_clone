@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Repository.ItemPhotoRepository;
@@ -19,7 +20,7 @@ import com.example.demo.entity.ItemPhoto;
 import com.example.demo.entity.Member;
 import com.example.demo.entity.dto.ItemDTO;
 
-import jakarta.transaction.Transactional;
+
 
 @Service
 public class ItemServiceImpl implements ItemService{

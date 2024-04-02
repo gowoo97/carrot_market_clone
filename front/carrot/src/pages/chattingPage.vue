@@ -88,6 +88,15 @@ export default{
                 console.log("dsfsdf");
                 this.subscription.unsubscribe();
             }
+            this.receiveList=[];
+
+            this.$axios.get("http://localhost:8080/message/"+id)
+                .then((response)=>{
+                    for(let msg of response.data){
+                        this.receiveList.push(JSON.stringify(msg));
+                    }
+                });
+
             this.subscription=this.stompClient.subscribe("/topic/"+id,res=>{
                 console.log(res.body);
                 this.receiveList.push(res.body);

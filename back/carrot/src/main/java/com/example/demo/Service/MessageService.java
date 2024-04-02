@@ -1,7 +1,10 @@
 package com.example.demo.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.Repository.MessageRepository;
 import com.example.demo.Repository.RoomRepository;
@@ -9,7 +12,7 @@ import com.example.demo.entity.Message;
 import com.example.demo.entity.Room;
 import com.example.demo.entity.dto.MessageVO;
 
-import jakarta.transaction.Transactional;
+
 
 @Service
 public class MessageService {
@@ -29,5 +32,14 @@ public class MessageService {
 		messageEntity.setContent(message.getContent());
 		messageRepository.save(messageEntity);
 	}
+	
+	@Transactional(readOnly = true)
+	public List<Message> getMessages(long roomNo){
+		
+		return messageRepository.findByRoomId(roomNo);
+		
+	}
+	
+	
 	
 }
