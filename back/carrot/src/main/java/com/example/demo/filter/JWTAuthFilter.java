@@ -39,7 +39,7 @@ public class JWTAuthFilter extends OncePerRequestFilter{
 			}
 			
 		}catch(Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		
 		filterChain.doFilter(request, response);

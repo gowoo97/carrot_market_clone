@@ -17,4 +17,6 @@ public interface ItemService {
 	
 	public Item getItem(Long id);
 	
+	
+	public void deleteItem(Long id);
 }

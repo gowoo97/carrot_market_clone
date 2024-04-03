@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.demo.entity.dto.ItemDTO;
 import com.example.demo.entity.dto.MemberDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -47,7 +48,7 @@ public class Item {
 	@Column(name = "place")
 	private String place;
 	
-	@OneToMany(mappedBy = "item_id" , fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "item_id" , fetch = FetchType.LAZY , cascade = CascadeType.REMOVE)
 	private List<ItemPhoto> photos=new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)

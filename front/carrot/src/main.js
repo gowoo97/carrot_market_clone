@@ -3,6 +3,7 @@ import router from './index.js'
 import App from './App.vue'
 import mitt from 'mitt';
 import axios from 'axios';
+import VueCookie from 'vue-cookies';
 
 axios.interceptors.request.use((config)=>{
     const token = localStorage.getItem('token');
@@ -17,6 +18,7 @@ const app=createApp(App);
 app.config.globalProperties.emitter=emitter;
 app.config.globalProperties.$axios=axios;
 app.use(router);
+app.use(VueCookie);
 app.mount('#app');
 
 

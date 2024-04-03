@@ -32,7 +32,12 @@
 
         <div style="width: 729px;">
             <span style="float: left;">조회수:{{ item.visit }}</span>
-
+            <span style="float: right;" v-if="this.$cookies.get('userId') == item?.publisher?.userId">
+                <button class="edit">수정</button>
+            </span>
+            <span style="float: right;" v-if="this.$cookies.get('userId') == item?.publisher?.userId">
+                <button v-on:click="deleteItem" class="edit">삭제</button>
+            </span>
         </div>
 
     </div>
@@ -65,6 +70,8 @@ export default{
     },
     methods:{
         addFriend:function(){
+            
+            
             this.$axios.post(`http://localhost:8080/friend`,{
                 to:this.item.publisher.userId
             })
@@ -75,6 +82,15 @@ export default{
                 console.log(err);
                 alert("이미 친구입니다.");
             });
+        },
+        deleteItem:function(){
+            if(confirm("삭제 하시겠습니까?")){
+                this.$axios.delete(`http://localhost:8080/item/${this.$router.currentRoute._value.params.id}`)
+                    .then(()=>{
+                        this.$router.push({ path:'/'});
+                    });
+            }
+            
         }
     }
     
@@ -145,4 +161,13 @@ export default{
    
     width:729px;
 }
+
+.edit{
+    width: 100px;
+    height: 30px;
+    background-color: #ff6f0f;
+    border: none;
+    border-radius: 10px;
+}
+
 </style>

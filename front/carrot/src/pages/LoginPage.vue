@@ -34,6 +34,7 @@ export default{
             .then(request=>{
                     localStorage.setItem('token',request.data.token);
                     this.emitter.emit('login');
+                    this.$cookies.set("userId",this.$data.userId);
                     this.$router.push({ path:'/'});
                 });
                 
