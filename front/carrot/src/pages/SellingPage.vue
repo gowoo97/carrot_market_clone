@@ -31,12 +31,16 @@
 <script>
 
 export default{
+    props:{
+        item : Object
+    },
     data(){
         return{
             title:'',
             price:'',
             content:'',
-            place:''
+            place:'',
+            id:''
         }
     },
     methods:{
@@ -47,7 +51,8 @@ export default{
                 title:this.$data.title,
                 price:this.$data.price,
                 content:this.$data.content,
-                place:this.$data.place
+                place:this.$data.place,
+                id:this.$data.id
             }
 
             for(const file of images.files){
@@ -56,10 +61,29 @@ export default{
 
             formData.append("itemDTO",new Blob([JSON.stringify(item)],{type:'application/json'}));
             
-            this.$axios.post("http://localhost:8080/item",formData)
+            if(this.$data.id == ''){
+                this.$axios.post("http://localhost:8080/item",formData)
                 .then((response)=>{
                     console.log(response);
                 })
+            }
+            else{
+                this.$axios.put("http://localhost:8080/item/"+this.$data.id,formData)
+                    .then((response)=>{
+                        console.log(response);
+                    });
+            }
+
+           
+        }
+    },
+    mounted(){
+        if(history.state.item != undefined){
+            this.$data.title=history.state.item.title;
+            this.$data.content=history.state.item.content;
+            this.$data.place=history.state.item.place;
+            this.$data.price=history.state.item.price;
+            this.$data.id=history.state.item.id;
         }
     }
 

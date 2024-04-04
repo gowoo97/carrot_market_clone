@@ -79,6 +79,18 @@ public class ItemServiceImpl implements ItemService{
 		itemRepository.deleteById(id);
 		
 	}
+	
+	@Transactional
+	public void modifyItem(Long id, ItemDTO itemDTO) {
+		
+		Item item = itemRepository.findById(id).get();
+		
+		item.setContent(itemDTO.getContent());
+		item.setPlace(itemDTO.getPlace());
+		item.setPrice(itemDTO.getPrice());
+		item.setTitle(itemDTO.getTitle());
+		
+	}
 
 	
 	

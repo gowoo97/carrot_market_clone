@@ -33,7 +33,7 @@
         <div style="width: 729px;">
             <span style="float: left;">조회수:{{ item.visit }}</span>
             <span style="float: right;" v-if="this.$cookies.get('userId') == item?.publisher?.userId">
-                <button class="edit">수정</button>
+                <button class="edit" v-on:click="editItem">수정</button>
             </span>
             <span style="float: right;" v-if="this.$cookies.get('userId') == item?.publisher?.userId">
                 <button v-on:click="deleteItem" class="edit">삭제</button>
@@ -61,10 +61,11 @@ export default{
         }
     },
     mounted(){
+    
         this.$axios.get(`http://localhost:8080/item/${this.$router.currentRoute._value.params.id}`)
         .then((response)=>{
            this.item=response.data;
-           console.log(this.item.publisher.userId);
+           console.log(this.item);
         });
         
     },
@@ -91,6 +92,17 @@ export default{
                     });
             }
             
+        },
+        editItem:function(){
+            this.$router.push({name: 'selling' ,  state:{
+                item:{
+                    title:this.$data.item.title,
+                    content:this.$data.item.content,
+                    price:this.$data.item.price,
+                    place:this.$data.item.place,
+                    id:this.$data.item.id
+                }
+            }});
         }
     }
     

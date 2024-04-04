@@ -25,8 +25,10 @@ const routes = [
     },
     {
         path:'/selling',
+        name:'selling',
         component:SellingPage,
-        meta:{requiredAuth: true}
+        meta:{requiredAuth: true},
+        props : true
 
     },
     {
